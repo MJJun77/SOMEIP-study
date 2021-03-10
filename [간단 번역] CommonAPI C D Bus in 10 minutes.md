@@ -100,6 +100,7 @@ $ wget http://dbus.freedesktop.org/releases/dbus/dbus-1.10.10.tar.gz
 $ tar -xzf dbus-1.10.10.tar.gz
 $ cd dbus-1.10.10/
 ```
+
 화면 출력 내용은 표시하지 않았다.  CommonAPI D-Bus source directory 에 패치를 적용하자.
 capi-dbus-add-send-with-reply-set-notify.patch 적용 방법은 다음과 같다:
 ```
@@ -108,6 +109,7 @@ patching file dbus/dbus-connection.c
 Hunk #1 succeeded at 3500 (offset 18 lines).
 patching file dbus/dbus-connection.h
 ```
+
 :exclamation: 모든 패치가 정상 적용되었는지 확인이 필요하다. 나는 D-Bus 1.6.x, 1.8.x and 1.10.x. 로 확인해 보았다.  다른 버전에 대해서는 테스트를 안해 봐서, patch 가 정상 동작하는지 보장할 수 없다.
 
 이제 autotools(*주: configure 명령어) 를 사용해서 libdbus 를 빌드하고, .libs-directory 에 .so library 가 정상 생성되었는지 확인하자:
@@ -115,20 +117,21 @@ patching file dbus/dbus-connection.h
 <.>/dbus-1.10.10$> ./configure
 <.>/dbus-1.10.10$> make
 ```
-:exclamation: libdbus 를 autotools 로 빌드하길 추천한다.  안그러면 CommonAPI C++ D-Bus 빌드시 중요한 몇가지 파일들을 miss 할 수 있다.
-```
 
-이제 CommonAPI runtime library 빌드가 가능하다.  지금 우리는 CommonAPI and libdbus 의 uninstall 버전을 사용하고 있음을 상기하자.  아래와 같이 build directory 를 생성 후 작업하자:
+:exclamation: libdbus 를 autotools 로 빌드하길 추천한다.  안그러면 CommonAPI C++ D-Bus 빌드시 중요한 몇가지 파일들을 missing 할 수 있다.  이제 CommonAPI runtime library 빌드가 가능하다.  지금 우리는 CommonAPI and libdbus 의 uninstall 버전을 사용하고 있음을 상기하자.  아래와 같이 build directory 를 생성 후 작업하자:
+
 ```
 <.>/capicxx-dbus-runtime$ mkdir build
 <.>/capicxx-dbus-runtime$ cd build
 ```
+
 다음 step 을 위해 D-Bus directory 를 PKG_CONFIG_PATH 환경 변수에 추가한 뒤, 늘 하던 것처럼 CMake / make 를 실행한다 :
 ```
 <.>/capicxx-dbus-runtime/build$ export PKG_CONFIG_PATH="<my-dbus-path>/dbus-1.10.10"
 <.>/capicxx-dbus-runtime/build$ cmake -DUSE_INSTALLED_COMMONAPI=OFF -DUSE_INSTALLED_DBUS=OFF ..
 <.>/capicxx-dbus-runtime/build$ make
 ```
+
 문제가 없다면 libCommonAPI-DBus.so 가 build dir 에 생성되었을 것이다. working dir path 에 space 가 없어야 할 것이다? (Make sure that there are no empty spaces in the path of your working directory.)
 
 ## Step 4: Write the Franca file and generate code
@@ -145,6 +148,7 @@ $ cd project/
 <.>/project/fidl$ vi HelloWorld.fidl
 ```
 fidl 파일의 내용을 아래와 같이 작성한다.
+
 ```
 package commonapi
 
