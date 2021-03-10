@@ -30,7 +30,7 @@ SOME/IP 세 개의 기본 파트로부터 시작해 보자.
 
 ### SOME/IP On-Wire Format
 원칙적으로 SOME/IP 통신은 device 간 혹은 subscriber 간 IP 통신을 통해 전송되는 메세지들로 이루어진다.  아래 그림을 보자 : 
-![SOME/IP on-wire format](SOMEIPOnWireFormat.jpg "Copied from GENIVI official github")
+![SOME/IP on-wire format](pictures/SOMEIPOnWireFormat.jpg "Copied from GENIVI official github")
 
 두 device (A, B) 에서, A 가 SOME/IP msg 1개를 B 에게 보내고 1개를 회신받는다.  이 통신은 TCP or UDP 위에서 동작한다.
 이제 B 가 A 에서 호출하면 메세지를 회신하는 service 를 돌린다고 가정해 보자.
@@ -70,7 +70,7 @@ UDP 의 경우 SOME/IP msg 가 fragment 되지 않는다.  하나 이상의 메�
 Service Interface 는 반드시 인스턴스화되어야 하는데, 왜냐하면 보통 같은 인터페이스를 다수의 service instance 가 있기 때문이다.  이 때 instance 들은 당연히 unique 한 다른 ID 를 가져야 하는데, 주의할 점은 Instance ID 는 SOME/IP 의 헤더에 있는 정보가 아니라는 것이다.  instance ID 는 Transport protocol 과 port number 를 통해 identified 된다.  즉 다시 말해, 같은 interface 를 통해 다수의 instance 를 제공하려면 각기 다른 포트를 사용해야 한다.
 
 SOME/IP 통신의 기본 패턴을 보여주는 아래 그림을 보자 : 
-![SOME/IP protocol](SOMEIPProtocol.jpg "Copied from GENIVI official github")
+![SOME/IP protocol](pictures/SOMEIPProtocol.jpg "Copied from GENIVI official github")
 
 원격 호출을 위한 표준 Req/Res mechanism 에 더해, events 를 위한 PUBLISH/SUBSCRIBE 패턴도 볼 수 있다.  SOME/IP protocol 의 events 는 항상 event group 에 묶여 있다는 것을 주지하자.  다시 말해 event group 을 subscribe 하는 것이 가능하지, 개별적인 event 를 subscribe 하는 것은 허용되지 않는다.
 SOME/IP spec 은 "fields" 에 대해서도 기술하고 있다.  이 그림에서 REQ/RSP 패턴과 EVENT 패턴 뒤에 setter/getter method 가 오고 있는 것을 볼 수 있는데(*주: Notification Callback 이라고 표시된 부분) 이것에 대한 subscription 은 SOME/IP 의 SD 를 통해 이루어진다.
@@ -82,13 +82,13 @@ SOME/IP SD 는 service instance 를 배치하고(*주: 서버쪽), Publish/Subsc
 만일 client app 에서 필요한 서비스가 그 시점에서 아직 offer 되지 않은 상태라면, client 가 "find msg" 를 보낼 수도 있다.  Other SOME/IP SD messages can be used for publishing or subscribing an eventgroup.
 
 아래 그림은 SOME/IP msg 의 general structure 를 보여준다 :
-![SOME/IP SD format](SOMEIPServiceDiscovery.jpg  "Copied from GENIVI official github")
+![SOME/IP SD format](pictures/SOMEIPServiceDiscovery.jpg  "Copied from GENIVI official github")
 
 이상으로, 기본에 대해 알아 보았다.  보다 상세한 내용은 후술할 예제나 실제 사양서를 통해 알아보도록 하자.
 
 ## vsomeip Short Overview
 입문 예제를 시작하기 전에, GENIVI 의 SOME/IP 기본 구현인 vsomeip 구조에 대해 살펴보자.
-![vsomeip overview](vsomeipOverview.jpg  "Copied from GENIVI official github")
+![vsomeip overview](pictures/vsomeipOverview.jpg  "Copied from GENIVI official github")
 
 그림에서 보면, vsomeip 는 외부 device 간 SOME/IP 통신을 커버하는 것 뿐만 아니라 IPC 도 커버하고 있다. (*주: 이게 windows porting 을 힘들게 한다...)
 통신하는 두 device 를 communication endpoints 라고 하고, 이 device 들은 transport protocol (UDP or TCP) 과 port number 를 비롯한 parameter 들을 결정한다.
